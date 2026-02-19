@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATAO | Académie Toulousaine des Arts et Civilisations d'Orient</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-paper: #F9F7F2;
+            --text-ink: #1A1A1A;
+            --accent-red: #B83A34; /* Rouge Sceau */
+            --text-grey: #555555;
+            --line-color: #E0Dbd0;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Lato', sans-serif;
+            
+            /* MODIFICATION : Espacement réduit (8rem -> 5rem) */
+            --spacing-section: 5rem;
+            --container-width: 900px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-paper);
+            color: var(--text-ink);
+            font-family: var(--font-sans);
+            line-height: 1.8;
+            font-size: 1.15rem;
+            overflow-x: hidden;
+            /* Grain de papier subtil */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+
+        /* --- TYPOGRAPHIE --- */
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            color: var(--text-ink);
+            font-weight: 400;
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            line-height: 1;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+            color: #F9F7F2; /* Texte clair sur l'image du Héro */
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: var(--accent-red);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #222;
+            text-align: justify;
+        }
+
+        blockquote {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            line-height: 1.4;
+            color: var(--text-ink);
+            border-left: 4px solid var(--accent-red);
+            padding-left: 2rem;
+            margin: 3rem 0;
+            font-style: italic;
+        }
+
+        .chapter-num {
+            font-family: var(--font-serif);
+            font-size: 10rem;
+            color: rgba(184, 58, 52, 0.05); /* Rouge très pâle */
+            position: absolute;
+            top: -5rem;
+            left: -4rem;
+            z-index: -1;
+            line-height: 1;
+        }
+
+        /* --- IMAGES & VISUELS --- */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            transition: filter 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Effet "Old Photo" qui disparait au survol */
+        .art-img {
+            filter: sepia(20%) contrast(95%);
+            border-radius: 2px;
+        }
+        
+        .art-img:hover {
+            filter: sepia(0%) contrast(100%);
+            transform: scale(1.01);
+        }
+
+        figcaption {
+            font-size: 0.85rem;
+            color: var(--text-grey);
+            font-style: italic;
+            margin-top: 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--line-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* --- LAYOUT UTILS --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .divider {
+            width: 80px;
+            height: 2px;
+            background-color: var(--accent-red);
+            margin: 4rem auto; /* Ajusté avec l'espacement réduit */
+            display: block;
+        }
+
+        .btn-text {
+            display: inline-block;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-red);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s;
+            margin-top: 1rem;
+            font-weight: 700;
+        }
+
+        .btn-text:hover {
+            border-bottom: 1px solid var(--accent-red);
+        }
+
+        /* NOUVEAU : Bouton principal solide (pour la fin de page) */
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--accent-red);
+            color: #fff;
+            padding: 12px 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s;
+            font-family: var(--font-sans);
+            font-weight: 700;
+        }
+        .btn-primary:hover {
+            background-color: #962d28;
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO (BUDDHA) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            /* Image de fond Buddha - GOOGLE DRIVE LINK */
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://drive.google.com/thumbnail?id=12a1JKvBw3APw5P69kKuxKYrlo5kzYxWJ&sz=w4000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Effet Parallax */
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+            background-color: var(--accent-red);
+            padding: 5px 15px;
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: var(--spacing-section) 0;
+            position: relative;
+        }
+
+        /* Layout Image Flottante (Hiéroglyphe) */
+        .float-visual-left {
+            float: left;
+            width: 350px;
+            margin-right: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Layout Image Pleine Largeur (Musée) */
+        .full-width-visual {
+            width: 100%;
+            margin: 3rem 0;
+            position: relative;
+        }
+        .full-width-visual img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Layout Grille (Collège / Jeunesse) */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-top: 2rem;
+        }
+
+        /* --- LISTES STYLISÉES --- */
+        ul.clean-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        ul.clean-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--line-color);
+            display: flex;
+            justify-content: space-between;
+        }
+        ul.clean-list li strong {
+            font-family: var(--font-serif);
+            font-weight: 600;
+        }
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* NOUVEAU : Section Final Call to Action */
+        .final-cta {
+            background-color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--line-color);
+            border-bottom: 1px solid var(--line-color);
+            margin-top: 2rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 0; /* Collé au CTA */
+            background-color: #111;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Lettrine */
+        .drop-cap::first-letter {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            float: left;
+            line-height: 0.8;
+            padding-right: 15px;
+            padding-top: 5px;
+            color: var(--accent-red);
+        }
+
+        /* Vrai logo flottant discret en bas à droite */
+        .floating-logo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            opacity: 0.8;
+            z-index: 100;
+            mix-blend-mode: multiply;
+            transition: opacity 0.3s;
+        }
+        .floating-logo:hover { opacity: 1; }
+
+        @media(max-width: 900px) {
+            h1 { font-size: 3rem; }
+            .hero { height: 80vh; }
+            .float-visual-left { float: none; width: 100%; margin: 0 0 2rem 0; }
+            .grid-layout { grid-template-columns: 1fr; gap: 2rem; }
+            .chapter-num { font-size: 6rem; top: -3rem; left: 0; }
+            blockquote { font-size: 1.3rem; padding-left: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://drive.google.com/thumbnail?id=1tNZzk0axtqHXnzfWziZppQNH84RVkgMR&sz=w4000" alt="Sceau ATAO" class="floating-logo">
+
+    <header class="hero reveal">
+        <span class="hero-subtitle">Fondée en 1992</span>
+        <h1>ATAO</h1>
+        <p style="max-width: 600px; font-style: italic; font-family: var(--font-serif); font-size: 1.5rem;">
+            Académie Toulousaine des Arts<br>& Civilisations d'Orient
+        </p>
+    </header>
+
+    <section id="fondation">
+        <div class="container">
+            <div class="reveal">
+                <span class="chapter-num">I</span>
+                <h2>L'Expertise Passionnée</h2>
+                
+                <p class="drop-cap">
+                    Cette structure – une association dont l’originalité est d’être fondée sur un collège d’académiciens de 31 membres – a été fondée en 1992 par <strong>Mme Monique Burgard</strong> et soutenue par Mr Pierre Puel, alors Maire adjoint chargé de la Culture.
+                </p>
+                
+                <h3>Une connaissance pluridisciplinaire</h3>
+                <p>
+                    L’objectif principal de cette académie est de <strong>MIEUX faire connaître</strong> au public toulousain l’histoire, les cultures et les réalisations des hommes qui ont peuplé ces territoires de l’Orient, qui s’étendent du Maghreb au Japon et de la Sibérie à l’Indonésie.
+                </p>
+
+                <figure class="full-width-visual reveal">
+                    <img src="https://drive.google.com/thumbnail?id=1jj9LTffBZVguXdtsrk6uJuGFhxcPRBAo&sz=w4000" alt="Musée Georges-Labit" class="art-img">
+                    <figcaption>Le Musée Georges-Labit, siège historique de l'Académie.</figcaption>
+                </figure>
+
+                <blockquote>
+                    "Les équilibres ne seront durables que si les échanges sont précédés d’une connaissance approfondie de nos cultures respectives."
+                </blockquote>
+
+                <p>
+                    Ce vaste programme tire son origine d’une double réflexion. D’abord, nous partageons la conviction que les pays de l’Orient sont appelés à jouer un rôle déterminant dans les équilibres mondiaux. Mais le risque n’est-il pas hier comme aujourd’hui d’incendier le Palais d’été ou de détruire Palmyre faute de compréhension ?
+                </p>
+                
+                <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+                    <a href="#" class="btn-text">Lire les statuts complets &rarr;</a>
+                    <a href="https://sites.google.com/view/secours-populaire-st-nazaire/annonce" class="btn-text" style="color: var(--text-grey); font-size: 0.8rem; border-color: var(--text-grey);">Voir nos dernières annonces</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider reveal"></div>
+
+    <section id="evolution">
+        <div class="container">
+            <div class="reveal">
+                <span class="chapter-num">II</span>
+                <h2>L'Approche Verticale</h2>
+                
+                <figure class="float-visual-left">
+                    <img src="https://drive.google.com/thumbnail?id=1gRqqNMCa-3h3LV5-34xV6RtcjCoFYeXS&sz=w4000" alt="Détail Hiéroglyphes" class="art-img" style="aspect-ratio: 1/1; object-fit: cover;">
+                    <figcaption>Déchiffrer les sédimentations de l'histoire.</figcaption>
+                </figure>
+
+                <p>
+                    Si l'Académie a débuté par l'étude des arts (peinture, architecture, jardins), elle a su évoluer. Durant ce quart de siècle, les progrès réalisés dans la génétique, la philologie, l'ethnologie ou encore l'intelligence artificielle nous ont permis d'approfondir <strong>verticalement</strong> notre connaissance de l'Orient.
+                </p>
+                <p>
+                    Nous pouvons aujourd'hui plonger jusqu’aux origines de certaines ethnies grâce à la génétique, ou comprendre la logique de schismes anciens grâce aux sciences politiques. C'est une approche pluridisciplinaire innovante, sans équivalent en France.
+                </p>
+                <p>
+                    De l'anthropologie aux sillons contemporains, nous explorons toute l'épaisseur de l'aventure humaine en Orient.
+                </p>
+                <div style="clear: both;"></div> </div>
+        </div>
+    </section>
+
+    <div class="divider reveal"></div>
+
+    <section id="college">
+        <div class="container">
+            <div class="reveal">
+                <span class="chapter-num">III</span>
+                <h2>Le Collège des Académiciens</h2>
+                
+                <figure class="full-width-visual" style="margin-bottom: 3rem;">
+                    <img src="https://drive.google.com/thumbnail?id=14ABNkbg77qmZyDOT58QGy-8btIYsb60m&sz=w4000" alt="Conférence ATAO" class="art-img">
+                    <figcaption>L'excellence académique en partage.</figcaption>
+                </figure>
+
+                <p>
+                    Pour garantir cette exigence, le collège s'est ouvert à des spécialistes de renommée internationale. Il constitue le socle intellectuel et la vitrine représentative de l'ATAO. Nos cycles de conférences sont filmés pour la postérité.
+                </p>
+                
+                <p style="text-align: center; margin: 2rem 0;">
+                    <a href="https://sites.google.com/view/secours-populaire-st-nazaire/vid%C3%A9o" class="btn-text">Visionner les conférences (Vidéos) &rarr;</a>
+                </p>
+
+                <div style="margin: 3rem 0; background: white; padding: 2rem; border: 1px solid var(--line-color);">
+                    <h3 style="text-align: center; color: var(--text-ink); margin-bottom: 2rem; font-family: var(--font-serif);">Membres Éminents</h3>
+                    <ul class="clean-list">
+                        <li><strong>Jean TIROLE</strong> <span>Prix Nobel d’Économie 2014</span></li>
+                        <li><strong>Jean-Claude GOLVIN</strong> <span>Égyptologue, Dir. recherches CNRS</span></li>
+                        <li><strong>Marine CARRIN</strong> <span>Ethnologue spécialiste de l’Inde</span></li>
+                        <li><strong>Éric CRUBEZY</strong> <span>Généticien, Chef de missions en Sibérie</span></li>
+                        <li><strong>Yves COPPENS</strong> <span>Paléoanthropologue (Membre d'honneur)</span></li>
+                    </ul>
+                    <div style="text-align: center;">
+                        <a href="#" class="btn-text">Découvrir les 31 membres &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider reveal"></div>
+
+    <section id="actions">
+        <div class="container">
+            <div class="reveal">
+                <span class="chapter-num">IV</span>
+                <h2>Transmission & Avenir</h2>
+                
+                <div class="grid-layout">
+                    
+                    <div>
+                        <h3>Le Prix Littéraire ATAO</h3>
+                        <p>
+                            Créé pour mettre en valeur l’œuvre d’un auteur contemporain sur l’Orient. Ce prix témoigne de notre désir d’associer la création littéraire à notre démarche scientifique. Il offre aux Toulousains un "autre regard", décalé et sensible.
+                        </p>
+                        <a href="https://sites.google.com/view/secours-populaire-st-nazaire/annonce" class="btn-text" style="font-size: 0.8rem;">Lire les articles sur le Prix Littéraire</a>
+
+                        <h3 style="margin-top: 3rem;">Soutien au Musée</h3>
+                        <p>
+                            Siège physique de l'Académie, le musée est au cœur de notre action. Nous organisons :
+                        </p>
+                        <ul style="margin-left: 1rem; margin-bottom: 1.5rem; list-style-type: circle; color: #555;">
+                            <li>Des <strong>Histoires Extraordinaires</strong> pour les enfants (à partir de 4 ans) le dimanche.</li>
+                            <li>Un concours de dessin annuel.</li>
+                            <li>Un soutien scientifique aux expositions.</li>
+                        </ul>
+                        <a href="https://sites.google.com/view/secours-populaire-st-nazaire/event" class="btn-text">Voir le calendrier des activités &rarr;</a>
+                    </div>
+
+                    <div>
+                        <figure>
+                            <img src="https://drive.google.com/thumbnail?id=1-uAlrQWbz6SLc0F3IfN0UcLJVzC0Bp2P&sz=w4000" alt="Œuvre Musée Labit" class="art-img" style="width: 100%; height: auto; object-fit: cover;">
+                            <figcaption>Trésors des collections du Musée Labit</figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta reveal">
+        <div class="container">
+            <h2 style="margin-bottom: 1rem;">Rejoignez l'aventure</h2>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem auto;">
+                Participez à nos prochaines rencontres, conférences et événements culturels pour enrichir votre regard sur l'Orient.
+            </p>
+            <a href="https://sites.google.com/view/secours-populaire-st-nazaire/event" class="btn-primary">S'inscrire aux événements</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 2rem;">
+                <img src="https://drive.google.com/thumbnail?id=1tNZzk0axtqHXnzfWziZppQNH84RVkgMR&sz=w4000" alt="Logo Footer" style="height: 60px; margin: 0 auto; opacity: 0.5;">
+            </div>
+            <p style="text-align: center; margin-bottom: 1rem; font-family: var(--font-serif); font-style: italic;">
+                ATAO — Académie Toulousaine des Arts et Civilisations d'Orient
+            </p>
+            <p style="text-align: center; font-size: 0.9rem; color: #666; line-height: 1.6;">
+                ATAO<br>
+                2, rue du colonel Rémy, appt 9<br>
+                31200 Toulouse<br><br>
+                Téléphone : +33 6 22 26 38 47<br>
+                Courriel : <a href="mailto:atao.culture@orange.fr" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #666;">atao.culture@orange.fr</a>
+            </p>
+            <div style="margin-top: 2rem; color: var(--accent-red); font-size: 1.5rem;">
+                &#10043;
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+
+</body>
+</html>
