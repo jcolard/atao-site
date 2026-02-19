@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualités | ATAO</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES & RESET DE BASE --- */
+        :root {
+            --bg-paper: #F9F7F2;
+            --text-ink: #1A1A1A;
+            --accent-red: #B83A34; 
+            --text-grey: #555555;
+            --line-color: #E0Dbd0;
+            --white: #ffffff;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Lato', sans-serif;
+            
+            --container-width: 900px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
+        body {
+            background-color: var(--bg-paper);
+            color: var(--text-ink);
+            font-family: var(--font-sans);
+            line-height: 1.8;
+            font-size: 1.15rem;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; color: var(--text-ink); }
+
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 2rem; }
+
+        /* --- NAVIGATION / HEADER --- */
+        .main-header {
+            width: 100%; z-index: 1000; padding: 1.5rem 2rem;
+            background-color: var(--text-ink);
+        }
+
+        .nav-container {
+            max-width: var(--container-width); margin: 0 auto; display: flex;
+            justify-content: space-between; align-items: center;
+        }
+
+        .logo-container img { height: 60px; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5)); transition: transform 0.3s ease; }
+        .logo-container img:hover { transform: scale(1.05); }
+
+        .nav-menu { list-style: none; display: flex; gap: 2rem; }
+        .nav-menu li a {
+            color: #fff; text-decoration: none; font-family: var(--font-sans);
+            font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;
+            font-weight: 700; transition: color 0.3s ease;
+        }
+        .nav-menu li a:hover { color: var(--accent-red); }
+
+        /* --- STYLES SPÉCIFIQUES ACTUALITÉS --- */
+        .app-section { flex: 1; padding: 4rem 0; }
+        .app-header-title { border-bottom: 1px solid var(--line-color); padding-bottom: 20px; margin-bottom: 40px; text-align: center; }
+        .app-header-title h1 { font-size: 2.5rem; margin: 0; }
+
+        /* LOADER */
+        .loader-container { text-align: center; padding: 40px; font-style: italic; color: var(--text-grey); font-size: 1rem; }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1); width: 50px; height: 50px; border-radius: 50%;
+            border-left-color: var(--accent-red); animation: spin 1s linear infinite; margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* ARTICLE À LA UNE (FEATURED) */
+        .featured-section { margin-bottom: 3rem; }
+        .featured-card {
+            display: flex; background: var(--white); border: 1px solid var(--line-color);
+            cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .featured-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .featured-img { width: 50%; background: #eee; position: relative; }
+        .featured-img img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+        .featured-content { width: 50%; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+        .article-date { color: var(--accent-red); font-size: 0.85rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .featured-title { font-size: 2rem; line-height: 1.2; margin-bottom: 15px; }
+        .article-excerpt { color: var(--text-grey); font-size: 1rem; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .read-more { font-family: var(--font-sans); font-weight: 700; color: var(--text-ink); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-top: auto; }
+
+        /* GRILLE D'ARTICLES */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .grid-card {
+            background: var(--white); border: 1px solid var(--line-color);
+            display: flex; flex-direction: column; cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; overflow: hidden;
+        }
+        .grid-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .grid-img { height: 200px; background: #eee; }
+        .grid-img img { width: 100%; height: 100%; object-fit: cover; }
+        .grid-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .grid-title { font-size: 1.4rem; line-height: 1.2; margin-bottom: 10px; }
+
+        /* MODALE ARTICLE COMPLET */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(26, 26, 26, 0.9); display: none; justify-content: center; align-items: center; z-index: 2000;
+            backdrop-filter: blur(4px); padding: 20px;
+        }
+        .modal-box {
+            background: var(--bg-paper); width: 100%; max-width: 800px; max-height: 90vh;
+            overflow-y: auto; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .modal-close {
+            position: absolute; top: 15px; right: 20px; font-size: 2rem; 
+            cursor: pointer; z-index: 10; color: var(--white); line-height: 1;
+            background: var(--accent-red); padding: 5px; border-radius: 50%;
+            width: 40px; height: 40px; text-align: center;
+        }
+        .modal-header-img { width: 100%; height: 350px; object-fit: cover; background: #eee; }
+        .modal-body { padding: 3rem; background: var(--white); }
+        .modal-body h2 { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.2; }
+        .modal-body .date { color: var(--accent-red); font-weight: bold; font-size: 0.9rem; margin-bottom: 30px; display: block; text-transform: uppercase; }
+        .modal-desc { font-size: 1.1rem; color: var(--text-ink); line-height: 1.8; white-space: pre-wrap; }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 4rem 0; background-color: #111; color: #888; font-size: 0.9rem; margin-top: auto; }
+        
+        @media(max-width: 900px) {
+            .nav-container { flex-direction: column; gap: 1rem; }
+            .nav-menu { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+            .featured-card { flex-direction: column; }
+            .featured-img, .featured-content { width: 100%; }
+            .featured-img { height: 250px; }
+            .modal-body { padding: 1.5rem; }
+            .modal-header-img { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo-container">
+                <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507287/le_logo_atao_zzufbw.png" alt="Logo ATAO">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="actualite.html" style="color: var(--accent-red);">Actualités</a></li>
+                <li><a href="Evenement.html">Événements</a></li>
+                <li><a href="https://www.appsheet.com/start/7f55dd52-8cfa-4f28-b88d-cb123d4c8758" target="_blank">Espace Membre</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="app-section">
+        <div class="container">
+            <div class="app-header-title">
+                <h1>Dernières Actualités</h1>
+            </div>
+
+            <div id="loader" class="loader-container">
+                <div class="spinner"></div>
+                <div class="loader-text">Récupération des articles en cours...</div>
+            </div>
+
+            <div id="featured-container" class="featured-section"></div>
+            
+            <div id="grid" class="cards-grid"></div>
+        </div>
+    </section>
+
+    <div id="modal-view" class="modal-overlay">
+        <div class="modal-box" onclick="event.stopPropagation();">
+            <div class="modal-close" onclick="closeModal('modal-view')">&times;</div>
+            <img id="modal-img" class="modal-header-img" src="" alt="Image de l'article">
+            <div class="modal-body">
+                <span id="modal-date" class="date"></span>
+                <h2 id="modal-title"></h2>
+                <div id="modal-desc" class="modal-desc"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 2rem;">
+                <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507287/le_logo_atao_zzufbw.png" alt="Logo Footer" style="height: 60px; margin: 0 auto; opacity: 0.5;">
+            </div>
+            <p style="text-align: center; margin-bottom: 1rem; font-family: var(--font-serif); font-style: italic;">
+                ATAO — Académie Toulousaine des Arts et Civilisations d'Orient
+            </p>
+            <p style="text-align: center; font-size: 0.9rem; color: #666; line-height: 1.6;">
+                ATAO<br>
+                2, rue du colonel Rémy, appt 9<br>
+                31200 Toulouse<br><br>
+                Téléphone : +33 6 22 26 38 47<br>
+                Courriel : <a href="mailto:atao.culture@orange.fr" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #666;">atao.culture@orange.fr</a>
+            </p>
+            <div style="margin-top: 2rem; color: var(--accent-red); font-size: 1.5rem;">&#10043;</div>
+        </div>
+    </footer>
+
+    <script>
+        // ----------------------------------------------------------------------
+        // /!\ IMPORTANT : REMPLACE CETTE URL PAR TON NOUVEAU DÉPLOIEMENT APPSCRIPT
+        // ----------------------------------------------------------------------
+        const API_URL = "https://script.google.com/macros/s/AKfycbwP_mfqY_V-q23bCeajm0nSOWL9kSFyq8w-lqZouPCCmsZEsBbVCmcuU_bbxj0KH2iBuQ/exec";
+
+        let allArticles = []; // Pour stocker les données en mémoire
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchData();
+        });
+
+        async function fetchData() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if(data.error) {
+                    throw new Error(data.error);
+                }
+
+                allArticles = data; // On stocke les données
+                renderPage(data);
+
+            } catch (error) {
+                console.error("Erreur API :", error);
+                document.getElementById('loader').innerHTML = "<p style='color: var(--accent-red);'>Erreur de chargement des articles.</p>";
+            }
+        }
+
+        function renderPage(data) {
+            document.getElementById('loader').style.display = 'none';
+            const grid = document.getElementById('grid');
+            const featuredContainer = document.getElementById('featured-container');
+            
+            if (!data || data.length === 0) {
+                 grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; color: var(--text-grey); font-style: italic;">Aucune actualité disponible pour le moment.</div>';
+                 return;
+            }
+
+            // Le premier article devient la une
+            renderFeatured(data[0], featuredContainer);
+            
+            // Les suivants vont dans la grille
+            if (data.length > 1) {
+                data.slice(1).forEach(item => renderGridCard(item, grid));
+            }
+        }
+
+        // Génération de l'article mis en avant (Featured)
+        function renderFeatured(item, container) {
+            const imgUrl = item.photoId ? `https://drive.google.com/thumbnail?id=${item.photoId}&sz=w1000` : 'https://via.placeholder.com/1000x600?text=ATAO';
+            
+            container.innerHTML = `
+                <div class="featured-card" onclick="openView('${item.id}')">
+                    <div class="featured-img">
+                        <img src="${imgUrl}" alt="Article à la une" loading="lazy">
+                    </div>
+                    <div class="featured-content">
+                        <span class="article-date">${item.date}</span>
+                        <h2 class="featured-title">${item.title}</h2>
+                        <div class="article-excerpt">${item.description}</div>
+                        <span class="read-more">Lire l'article &rarr;</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Génération des articles classiques (Grille)
+        function renderGridCard(item, container) {
+            const imgUrl = item.photoId ? `https://drive.google.com/thumbnail?id=${item.photoId}&sz=w600` : 'https://via.placeholder.com/600x400?text=ATAO';
+            
+            const card = document.createElement('div');
+            card.className = 'grid-card';
+            card.onclick = () => openView(item.id);
+            
+            card.innerHTML = `
+                <div class="grid-img">
+                    <img src="${imgUrl}" alt="Illustration article" loading="lazy">
+                </div>
+                <div class="grid-content">
+                    <span class="article-date">${item.date}</span>
+                    <h3 class="grid-title">${item.title}</h3>
+                    <div class="article-excerpt">${item.description}</div>
+                    <span class="read-more">Lire l'article &rarr;</span>
+                </div>
+            `;
+            container.appendChild(card);
+        }
+
+        // Ouverture de la modale pour lire l'article complet
+        function openView(id) {
+            const article = allArticles.find(a => a.id === String(id));
+            if (!article) return;
+
+            document.getElementById('modal-title').innerText = article.title;
+            document.getElementById('modal-date').innerText = article.date;
+            document.getElementById('modal-desc').innerText = article.description;
+
+            const imgUrl = article.photoId ? `https://drive.google.com/thumbnail?id=${article.photoId}&sz=w1200` : '';
+            const imgEl = document.getElementById('modal-img');
+            imgEl.style.display = imgUrl ? 'block' : 'none';
+            imgEl.src = imgUrl;
+
+            document.getElementById('modal-view').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Empêche le scroll de la page derrière
+        }
+
+        // Fermeture de la modale
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto'; // Réactive le scroll
+        }
+
+        // Fermeture en cliquant sur l'overlay sombre
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal-view');
+            if (event.target === modal) {
+                closeModal('modal-view');
+            }
+        };
+    </script>
+</body>
+</html>
