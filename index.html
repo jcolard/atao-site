@@ -18,7 +18,7 @@
         :root {
             --bg-paper: #F9F7F2;
             --text-ink: #1A1A1A;
-            --accent-red: #B83A34; /* Rouge Sceau */
+            --accent-red: #B83A34;
             --text-grey: #555555;
             --line-color: #E0Dbd0;
             
@@ -38,12 +38,10 @@
             line-height: 1.8;
             font-size: 1.15rem;
             overflow-x: hidden;
-            /* Grain de papier subtil */
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
         }
 
         /* --- NAVIGATION / HEADER --- */
-        /* MODIFICATION: position: fixed pour garder le header au scroll */
         .main-header {
             position: fixed;
             top: 0;
@@ -51,7 +49,7 @@
             width: 100%;
             z-index: 1000;
             padding: 1.5rem 2rem;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent); /* Légèrement assombri pour la lisibilité au scroll */
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent);
         }
 
         .nav-container {
@@ -232,7 +230,7 @@
             transform: translateY(-2px);
         }
 
-        /* --- HERO (BUDDHA) --- */
+        /* --- HERO --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -305,7 +303,7 @@
         }
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 4px;
@@ -388,6 +386,26 @@
         }
         .floating-logo:hover { opacity: 1; }
 
+        /* --- Bouton d'installation PWA --- */
+        #install-button {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 1000;
+            padding: 12px 24px;
+            background-color: var(--accent-red);
+            color: white;
+            border: none;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+
         @media(max-width: 900px) {
             h1 { font-size: 3rem; }
             .hero { height: 80vh; }
@@ -417,6 +435,9 @@
         </div>
     </header>
 
+    <!-- Bouton d'installation PWA (dans le HTML, pas dans un script) -->
+    <button id="install-button">Installer l'Application</button>
+
     <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507287/le_logo_atao_zzufbw.png" alt="Sceau ATAO" class="floating-logo">
 
     <section class="hero reveal">
@@ -434,12 +455,12 @@
                 <h2>L'Expertise Passionnée</h2>
                 
                 <p class="drop-cap">
-                    Cette structure – une association dont l’originalité est d’être fondée sur un collège d’académiciens de 31 membres – a été fondée en 1992 par <strong>Mme Monique Burgard</strong> et soutenue par Mr Pierre Puel, alors Maire adjoint chargé de la Culture.
+                    Cette structure – une association dont l'originalité est d'être fondée sur un collège d'académiciens de 31 membres – a été fondée en 1992 par <strong>Mme Monique Burgard</strong> et soutenue par Mr Pierre Puel, alors Maire adjoint chargé de la Culture.
                 </p>
                 
                 <h3>Une connaissance pluridisciplinaire</h3>
                 <p>
-                    L’objectif principal de cette académie est de <strong>MIEUX faire connaître</strong> au public toulousain l’histoire, les cultures et les réalisations des hommes qui ont peuplé ces territoires de l’Orient, qui s’étendent du Maghreb au Japon et de la Sibérie à l’Indonésie.
+                    L'objectif principal de cette académie est de <strong>MIEUX faire connaître</strong> au public toulousain l'histoire, les cultures et les réalisations des hommes qui ont peuplé ces territoires de l'Orient, qui s'étendent du Maghreb au Japon et de la Sibérie à l'Indonésie.
                 </p>
 
                 <figure class="full-width-visual reveal">
@@ -448,11 +469,11 @@
                 </figure>
 
                 <blockquote>
-                    "Les équilibres ne seront durables que si les échanges sont précédés d’une connaissance approfondie de nos cultures respectives."
+                    "Les équilibres ne seront durables que si les échanges sont précédés d'une connaissance approfondie de nos cultures respectives."
                 </blockquote>
 
                 <p>
-                    Ce vaste programme tire son origine d’une double réflexion. D’abord, nous partageons la conviction que les pays de l’Orient sont appelés à jouer un rôle déterminant dans les équilibres mondiaux. Mais le risque n’est-il pas hier comme aujourd’hui d’incendier le Palais d’été ou de détruire Palmyre faute de compréhension ?
+                    Ce vaste programme tire son origine d'une double réflexion. D'abord, nous partageons la conviction que les pays de l'Orient sont appelés à jouer un rôle déterminant dans les équilibres mondiaux. Mais le risque n'est-il pas hier comme aujourd'hui d'incendier le Palais d'été ou de détruire Palmyre faute de compréhension ?
                 </p>
                 
                 <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
@@ -479,7 +500,7 @@
                     Si l'Académie a débuté par l'étude des arts (peinture, architecture, jardins), elle a su évoluer. Durant ce quart de siècle, les progrès réalisés dans la génétique, la philologie, l'ethnologie ou encore l'intelligence artificielle nous ont permis d'approfondir <strong>verticalement</strong> notre connaissance de l'Orient.
                 </p>
                 <p>
-                    Nous pouvons aujourd'hui plonger jusqu’aux origines de certaines ethnies grâce à la génétique, ou comprendre la logique de schismes anciens grâce aux sciences politiques. C'est une approche pluridisciplinaire innovante, sans équivalent en France.
+                    Nous pouvons aujourd'hui plonger jusqu'aux origines de certaines ethnies grâce à la génétique, ou comprendre la logique de schismes anciens grâce aux sciences politiques. C'est une approche pluridisciplinaire innovante, sans équivalent en France.
                 </p>
                 <p>
                     De l'anthropologie aux sillons contemporains, nous explorons toute l'épaisseur de l'aventure humaine en Orient.
@@ -509,9 +530,9 @@
                 <div style="margin: 3rem 0; background: white; padding: 2rem; border: 1px solid var(--line-color);">
                     <h3 style="text-align: center; color: var(--text-ink); margin-bottom: 2rem; font-family: var(--font-serif);">Membres Éminents</h3>
                     <ul class="clean-list">
-                        <li><strong>Jean TIROLE</strong> <span>Prix Nobel d’Économie 2014</span></li>
+                        <li><strong>Jean TIROLE</strong> <span>Prix Nobel d'Économie 2014</span></li>
                         <li><strong>Jean-Claude GOLVIN</strong> <span>Égyptologue, Dir. recherches CNRS</span></li>
-                        <li><strong>Marine CARRIN</strong> <span>Ethnologue spécialiste de l’Inde</span></li>
+                        <li><strong>Marine CARRIN</strong> <span>Ethnologue spécialiste de l'Inde</span></li>
                         <li><strong>Éric CRUBEZY</strong> <span>Généticien, Chef de missions en Sibérie</span></li>
                         <li><strong>Yves COPPENS</strong> <span>Paléoanthropologue (Membre d'honneur)</span></li>
                     </ul>
@@ -533,7 +554,7 @@
                     <div>
                         <h3>Le Prix Littéraire ATAO</h3>
                         <p>
-                            Créé pour mettre en valeur l’œuvre d’un auteur contemporain sur l’Orient. Ce prix témoigne de notre désir d’associer la création littéraire à notre démarche scientifique. Il offre aux Toulousains un "autre regard", décalé et sensible.
+                            Créé pour mettre en valeur l'œuvre d'un auteur contemporain sur l'Orient. Ce prix témoigne de notre désir d'associer la création littéraire à notre démarche scientifique. Il offre aux Toulousains un "autre regard", décalé et sensible.
                         </p>
                         <a href="article.html" class="btn-text" style="font-size: 0.8rem;">Lire les articles sur le Prix Littéraire</a>
 
@@ -626,11 +647,6 @@
     </footer>
 
     <script>
- <button id="install-button" style="display: none; position: fixed; bottom: 100px; right: 20px; z-index: 1000; padding: 12px 24px; background-color: var(--accent-red); color: white; border: none; font-family: var(--font-sans); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.2s;">
-        Installer l'Application
-    </button>
-
-    <script>
         // 1. Animations au scroll
         document.addEventListener('DOMContentLoaded', () => {
             const observerOptions = {
@@ -649,10 +665,9 @@
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
 
-        // 2. Enregistrement du Service Worker (Chemin relatif corrigé)
+        // 2. Enregistrement du Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                // Utilisation de ./sw.js au lieu de /sw.js
                 navigator.serviceWorker.register('./sw.js')
                     .then(registration => {
                         console.log('Service Worker enregistré avec succès:', registration.scope);
@@ -663,38 +678,30 @@
             });
         }
 
-        // 3. Gestion de la Pop-up / Bouton d'installation
+        // 3. Gestion du bouton d'installation PWA
         let deferredPrompt;
         const installButton = document.getElementById('install-button');
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Empêche le navigateur d'afficher sa propre invite discrète
             e.preventDefault();
-            // Sauvegarde l'événement pour le déclencher plus tard
             deferredPrompt = e;
-            // Affiche notre bouton personnalisé
             installButton.style.display = 'block';
         });
 
         installButton.addEventListener('click', async () => {
             if (deferredPrompt !== null) {
-                // Affiche la vraie pop-up native du téléphone/navigateur
                 deferredPrompt.prompt();
-                // Attend la réponse de l'utilisateur
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
                     console.log('L\'utilisateur a accepté l\'installation');
                 } else {
                     console.log('L\'utilisateur a refusé l\'installation');
                 }
-                // Réinitialise la variable
                 deferredPrompt = null;
-                // Cache le bouton
                 installButton.style.display = 'none';
             }
         });
 
-        // Cache le bouton si l'app est déjà installée
         window.addEventListener('appinstalled', () => {
             installButton.style.display = 'none';
             console.log('PWA installée avec succès');
