@@ -2,7 +2,7 @@
   "name": "Académie Toulousaine des Arts et Civilisations d'Orient",
   "short_name": "ATAO",
   "description": "Retrouvez les événements et actualités de l'ATAO",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F9F7F2",
   "theme_color": "#B83A34",
