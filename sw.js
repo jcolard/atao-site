@@ -1,29 +1,31 @@
-const CACHE_NAME = 'atao-cache-v1';
+const CACHE_NAME = 'atao-cache-v2'; // incrémenté pour forcer la mise à jour
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
-// Installation du service worker et mise en cache
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
+  self.skipWaiting(); // Active immédiatement le nouveau SW
 });
 
-// Interception des requêtes pour renvoyer le cache si disponible
+self.addEventListener('activate', event => {
+  // Supprime les anciens caches
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    )
+  );
+  self.clients.claim(); // Prend le contrôle immédiatement
+});
+
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Retourne le fichier en cache s'il existe, sinon lance la requête réseau
-        return response || fetch(event.request);
-      })
+    caches.match(event.request).then(response => response || fetch(event.request))
   );
 });
