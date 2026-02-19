@@ -626,7 +626,12 @@
     </footer>
 
     <script>
-        // Animations au scroll
+ <button id="install-button" style="display: none; position: fixed; bottom: 100px; right: 20px; z-index: 1000; padding: 12px 24px; background-color: var(--accent-red); color: white; border: none; font-family: var(--font-sans); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: transform 0.2s;">
+        Installer l'Application
+    </button>
+
+    <script>
+        // 1. Animations au scroll
         document.addEventListener('DOMContentLoaded', () => {
             const observerOptions = {
                 threshold: 0.15,
@@ -644,10 +649,11 @@
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
 
-        // Enregistrement du Service Worker (pour la PWA)
+        // 2. Enregistrement du Service Worker (Chemin relatif corrigé)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                // Utilisation de ./sw.js au lieu de /sw.js
+                navigator.serviceWorker.register('./sw.js')
                     .then(registration => {
                         console.log('Service Worker enregistré avec succès:', registration.scope);
                     })
@@ -656,6 +662,43 @@
                     });
             });
         }
+
+        // 3. Gestion de la Pop-up / Bouton d'installation
+        let deferredPrompt;
+        const installButton = document.getElementById('install-button');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Empêche le navigateur d'afficher sa propre invite discrète
+            e.preventDefault();
+            // Sauvegarde l'événement pour le déclencher plus tard
+            deferredPrompt = e;
+            // Affiche notre bouton personnalisé
+            installButton.style.display = 'block';
+        });
+
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt !== null) {
+                // Affiche la vraie pop-up native du téléphone/navigateur
+                deferredPrompt.prompt();
+                // Attend la réponse de l'utilisateur
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('L\'utilisateur a accepté l\'installation');
+                } else {
+                    console.log('L\'utilisateur a refusé l\'installation');
+                }
+                // Réinitialise la variable
+                deferredPrompt = null;
+                // Cache le bouton
+                installButton.style.display = 'none';
+            }
+        });
+
+        // Cache le bouton si l'app est déjà installée
+        window.addEventListener('appinstalled', () => {
+            installButton.style.display = 'none';
+            console.log('PWA installée avec succès');
+        });
     </script>
 
 </body>
