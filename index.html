@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATAO | Académie Toulousaine des Arts et Civilisations d'Orient</title>
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#B83A34">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -39,14 +43,15 @@
         }
 
         /* --- NAVIGATION / HEADER --- */
+        /* MODIFICATION: position: fixed pour garder le header au scroll */
         .main-header {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
             padding: 1.5rem 2rem;
-            background: linear-gradient(rgba(0,0,0,0.6), transparent);
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent); /* Légèrement assombri pour la lisibilité au scroll */
         }
 
         .nav-container {
@@ -451,8 +456,7 @@
                 </p>
                 
                 <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-                    <a href="#" class="btn-text">Lire les statuts complets &rarr;</a>
-                    <a href="https://sites.google.com/view/secours-populaire-st-nazaire/annonce" class="btn-text" style="color: var(--text-grey); font-size: 0.8rem; border-color: var(--text-grey);">Voir nos dernières annonces</a>
+                    <a href="article.html" class="btn-text" style="color: var(--text-grey); font-size: 0.8rem; border-color: var(--text-grey);">Voir nos dernières annonces</a>
                 </div>
             </div>
         </div>
@@ -511,9 +515,6 @@
                         <li><strong>Éric CRUBEZY</strong> <span>Généticien, Chef de missions en Sibérie</span></li>
                         <li><strong>Yves COPPENS</strong> <span>Paléoanthropologue (Membre d'honneur)</span></li>
                     </ul>
-                    <div style="text-align: center;">
-                        <a href="#" class="btn-text">Découvrir les 31 membres &rarr;</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -534,7 +535,7 @@
                         <p>
                             Créé pour mettre en valeur l’œuvre d’un auteur contemporain sur l’Orient. Ce prix témoigne de notre désir d’associer la création littéraire à notre démarche scientifique. Il offre aux Toulousains un "autre regard", décalé et sensible.
                         </p>
-                        <a href="https://sites.google.com/view/secours-populaire-st-nazaire/annonce" class="btn-text" style="font-size: 0.8rem;">Lire les articles sur le Prix Littéraire</a>
+                        <a href="article.html" class="btn-text" style="font-size: 0.8rem;">Lire les articles sur le Prix Littéraire</a>
 
                         <h3 style="margin-top: 3rem;">Soutien au Musée</h3>
                         <p>
@@ -545,7 +546,7 @@
                             <li>Un concours de dessin annuel.</li>
                             <li>Un soutien scientifique aux expositions.</li>
                         </ul>
-                        <a href="https://sites.google.com/view/secours-populaire-st-nazaire/event" class="btn-text">Voir le calendrier des activités &rarr;</a>
+                        <a href="Evenement.html" class="btn-text">Voir le calendrier des activités &rarr;</a>
                     </div>
 
                     <div>
@@ -599,7 +600,7 @@
             <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem auto;">
                 Participez à nos prochaines rencontres, conférences et événements culturels pour enrichir votre regard sur l'Orient.
             </p>
-            <a href="https://sites.google.com/view/secours-populaire-st-nazaire/event" class="btn-primary">S'inscrire aux événements</a>
+            <a href="Evenement.html" class="btn-primary">S'inscrire aux événements</a>
         </div>
     </section>
 
@@ -625,6 +626,7 @@
     </footer>
 
     <script>
+        // Animations au scroll
         document.addEventListener('DOMContentLoaded', () => {
             const observerOptions = {
                 threshold: 0.15,
@@ -641,6 +643,19 @@
 
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
+
+        // Enregistrement du Service Worker (pour la PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker enregistré avec succès:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de l\'enregistrement du Service Worker:', error);
+                    });
+            });
+        }
     </script>
 
 </body>
