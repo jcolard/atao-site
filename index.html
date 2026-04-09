@@ -1,712 +1,403 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-FR">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATAO | Académie Toulousaine des Arts et Civilisations d'Orient</title>
-
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#B83A34">
-    <link rel="apple-touch-icon" href="icon-192.png">
-
+    <title>Jérémy Colard - Propulseur d'Associations (Assopage)</title>
+    <meta name="description" content="Je m’appelle Jérémy Colard. J'aide les associations à transformer leur gestion invisible en une force de frappe numérique immédiate." />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* --- VARIABLES & RESET --- */
         :root {
-            --bg-paper: #F9F7F2;
-            --text-ink: #1A1A1A;
-            --accent-red: #B83A34;
-            --text-grey: #555555;
-            --line-color: #E0Dbd0;
+            --yellow: #fdf987;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --grey-light: #f5f5f5;
+            --text-grey: #4a4a4a;
             
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Lato', sans-serif;
-            
-            --spacing-section: 5rem;
-            --container-width: 900px;
+            --font-title: 'Oswald', sans-serif;
+            --font-body: 'Roboto Condensed', sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg-paper);
-            color: var(--text-ink);
-            font-family: var(--font-sans);
-            line-height: 1.8;
-            font-size: 1.15rem;
+            font-family: var(--font-body);
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+            font-size: 18px;
             overflow-x: hidden;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
         }
 
-        /* --- NAVIGATION / HEADER --- */
-        .main-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1.5rem 2rem;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent);
+        /* ─── TYPOGRAPHIE ─── */
+        h1, h2, h3, h4 { font-family: var(--font-title); text-transform: uppercase; font-weight: 500; color: var(--black); }
+        h2 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 20px; text-align: center; }
+        p { margin-bottom: 20px; color: var(--text-grey); }
+        
+        .separator-small {
+            width: 80px; height: 4px; background-color: var(--yellow);
+            margin: 0 auto 40px auto;
         }
+        .separator-dark { background-color: var(--black); }
 
-        .nav-container {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* ─── BOUTONS ─── */
+        .qbutton {
+            display: inline-block; font-family: var(--font-title); text-transform: uppercase;
+            font-size: 18px; letter-spacing: 1px; font-weight: 500; text-decoration: none;
+            padding: 15px 35px; transition: all 0.3s ease; text-align: center; border: 2px solid transparent; cursor: pointer;
         }
+        .qbutton.yellow { background-color: var(--yellow); color: var(--black); }
+        .qbutton.yellow:hover { background-color: var(--black); color: var(--white); }
+        .qbutton.dark { background-color: var(--black); color: var(--white); border-color: var(--black); }
+        .qbutton.dark:hover { background-color: var(--yellow); color: var(--black); border-color: var(--yellow); }
 
-        .logo-container img {
-            height: 60px;
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container img:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-menu {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-menu li a {
-            color: #fff;
-            text-decoration: none;
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu li a:hover {
-            color: var(--accent-red);
-        }
-
-        /* --- TYPOGRAPHIE --- */
-        h1, h2, h3 {
-            font-family: var(--font-serif);
-            color: var(--text-ink);
-            font-weight: 400;
-        }
-
-        h1 {
-            font-size: clamp(3.5rem, 7vw, 6rem);
-            line-height: 1;
-            letter-spacing: -1px;
-            margin-bottom: 1.5rem;
-            color: #F9F7F2;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-style: italic;
-            color: var(--accent-red);
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-            color: #222;
-            text-align: justify;
-        }
-
-        blockquote {
-            font-family: var(--font-serif);
-            font-size: 1.6rem;
-            line-height: 1.4;
-            color: var(--text-ink);
-            border-left: 4px solid var(--accent-red);
-            padding-left: 2rem;
-            margin: 3rem 0;
-            font-style: italic;
-        }
-
-        .chapter-num {
-            font-family: var(--font-serif);
-            font-size: 10rem;
-            color: rgba(184, 58, 52, 0.05);
-            position: absolute;
-            top: -5rem;
-            left: -4rem;
-            z-index: -1;
-            line-height: 1;
-        }
-
-        /* --- IMAGES & VISUELS --- */
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            transition: filter 0.5s ease, transform 0.5s ease;
-        }
-
-        .art-img {
-            filter: sepia(20%) contrast(95%);
-            border-radius: 2px;
+        /* ─── NAV ─── */
+        nav {
+            position: absolute; /* Fixe en haut de page, mais ne flotte plus au scroll */
+            top: 0; width: 100%; z-index: 1000;
+            background: transparent; /* Bande transparente */
+            padding: 20px 40px;
+            display: flex; justify-content: space-between; align-items: center;
         }
         
-        .art-img:hover {
-            filter: sepia(0%) contrast(100%);
-            transform: scale(1.01);
+        /* Nouveau Logo Montserrat */
+        .logo { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: -2px; 
+            line-height: 1;
+        }
+        .logo .asso { color: var(--black); }
+        .logo .page { color: var(--yellow); }
+
+        .nav-links a {
+            font-family: var(--font-title); text-transform: uppercase; text-decoration: none;
+            color: var(--black); margin-left: 30px; font-size: 1.1rem; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #888; }
+        .nav-links a.client-portal { color: #d69e00; }
+        
+        @media (max-width: 900px) { 
+            .nav-links { display: none; } 
+            nav { padding: 20px; } /* Ajustement du padding sur mobile */
         }
 
-        figcaption {
-            font-size: 0.85rem;
-            color: var(--text-grey);
-            font-style: italic;
-            margin-top: 0.5rem;
-            text-align: center;
-            border-bottom: 1px solid var(--line-color);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
+        /* ─── LAYOUT GLOBALE ─── */
+        .section { padding: 100px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; text-align: center; } }
 
-        /* --- LAYOUT UTILS --- */
-        .container {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .divider {
-            width: 80px;
-            height: 2px;
-            background-color: var(--accent-red);
-            margin: 4rem auto;
-            display: block;
-        }
-
-        .btn-text {
-            display: inline-block;
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-red);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-bottom 0.3s;
-            margin-top: 1rem;
-            font-weight: 700;
-        }
-
-        .btn-text:hover {
-            border-bottom: 1px solid var(--accent-red);
-        }
-
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--accent-red);
-            color: #fff;
-            padding: 12px 25px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s;
-            font-family: var(--font-sans);
-            font-weight: 700;
-        }
-        .btn-primary:hover {
-            background-color: #962d28;
-            transform: translateY(-2px);
-        }
-
-        /* --- HERO --- */
+        /* ─── HERO SECTION ─── */
         .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507212/buddha_t0ubu5.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            height: 100vh; min-height: 600px;
+            background-image: url('le fond.png');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; 
+            justify-content: flex-start;
+            position: relative; text-align: left; padding: 0 8%;
+            background-color: #111; 
         }
-
-        .hero-subtitle {
-            font-family: var(--font-sans);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 1.5rem;
-            background-color: var(--accent-red);
-            padding: 5px 15px;
+        .hero-content { position: relative; z-index: 2; max-width: 650px; margin-top: 50px;}
+        .hero h1 {
+            color: var(--white); font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: 4px; line-height: 1.2; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-align: left;
         }
-
+        .hero .separator-small { margin: 0 0 30px 0; }
         .hero p {
-            color: rgba(255,255,255,0.9);
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            text-align: center;
+            color: var(--white); font-family: var(--font-title); font-size: clamp(1.2rem, 2vw, 1.8rem);
+            font-weight: 300; margin-bottom: 40px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* --- SECTIONS --- */
-        section {
-            padding: var(--spacing-section) 0;
-            position: relative;
-        }
+        /* ─── LOGOS ─── */
+        .logos-section { background-color: var(--yellow); padding: 60px 0; overflow: hidden; border-bottom: 3px solid var(--black);}
+        .logos-section h3 { text-align: center; font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; }
+        .marquee { display: flex; gap: 60px; width: max-content; animation: marquee 20s linear infinite; align-items: center;}
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee img { height: 60px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
+        .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
-        .float-visual-left {
-            float: left;
-            width: 350px;
-            margin-right: 3rem;
-            margin-bottom: 1rem;
+        /* ─── ABOUT ─── */
+        .about-section { background-color: var(--white); }
+        .about-text h2 { text-align: left; }
+        .about-text .separator-small { margin: 0 0 30px 0; }
+        .about-image img { width: 100%; box-shadow: -15px 15px 0px var(--yellow); border: 2px solid var(--black);}
+        @media (max-width: 768px) { .about-text h2 { text-align: center; } .about-text .separator-small { margin: 0 auto 30px auto; } }
+
+        /* ─── OFFRES (STRIPE) ─── */
+        .offers-section { background-color: var(--grey-light); }
+        .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
+        .offer-card {
+            background: var(--white); padding: 40px 30px; text-align: center;
+            border: 1px solid #ddd; transition: transform 0.3s;
+            display: flex; flex-direction: column;
         }
+        .offer-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-color: var(--yellow);}
+        .offer-card.featured { background-color: var(--yellow); border-color: var(--black); box-shadow: 8px 8px 0px var(--black); }
+        .offer-card h3 { font-size: 2rem; margin-bottom: 10px; }
+        .offer-price { font-family: var(--font-title); font-size: 3rem; color: var(--black); margin-bottom: 20px; line-height: 1;}
+        .offer-price span { font-size: 1rem; color: var(--text-grey); }
+        .offer-card p { font-size: 0.95rem; margin-bottom: 30px; min-height: 60px;}
+        .offer-card ul { list-style: none; margin-bottom: 30px; text-align: left; flex-grow: 1; }
+        .offer-card ul li { margin-bottom: 10px; font-size: 0.95rem; padding-left: 25px; position: relative; color: var(--text-grey);}
+        .offer-card ul li::before { content: '✓'; position: absolute; left: 0; color: var(--black); font-weight: bold; }
+
+        /* ─── TEMOIGNAGES ─── */
+        .testimonials-section { background-color: var(--yellow); }
+        .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+        .testi-card { background: var(--white); padding: 40px; border: 2px solid var(--black); box-shadow: 6px 6px 0px var(--black); display: flex; flex-direction: column; justify-content: space-between;}
+        .testi-quote { font-size: 1.1rem; font-style: italic; margin-bottom: 20px; color: var(--black); }
         
-        .full-width-visual {
-            width: 100%;
-            margin: 3rem 0;
-            position: relative;
-        }
-        .full-width-visual img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
+        .testi-author-block { display: flex; align-items: center; gap: 15px; margin-top: 15px; }
+        .testi-profile-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--black); background-color: var(--white); }
+        .testi-author-info { display: flex; flex-direction: column; }
+        
+        .testi-author { font-family: var(--font-title); text-transform: uppercase; font-weight: 700; color: var(--black); line-height: 1.2; }
+        .testi-role { font-size: 0.85rem; color: #666; }
 
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
-            margin-top: 2rem;
-        }
+        /* ─── PORTFOLIO / SUR-MESURE ─── */
+        .portfolio-section { background-color: var(--black); color: var(--white); text-align: center; }
+        .portfolio-section h2 { color: var(--white); }
 
-        /* --- GALERIE VIDÉOS --- */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
+        /* ─── CONTACT ─── */
+        .contact-section { background-color: var(--white); text-align: center; }
+        .contact-wrapper { max-width: 600px; margin: 0 auto; }
+        .contact-icon { font-size: 60px; color: var(--black); margin-bottom: 20px; }
 
-        /* --- LISTES STYLISÉES --- */
-        ul.clean-list {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-        ul.clean-list li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--line-color);
-            display: flex;
-            justify-content: space-between;
-        }
-        ul.clean-list li strong {
-            font-family: var(--font-serif);
-            font-weight: 600;
-        }
-
-        /* --- ANIMATIONS --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .final-cta {
-            background-color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            border-top: 1px solid var(--line-color);
-            border-bottom: 1px solid var(--line-color);
-            margin-top: 2rem;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 4rem 0;
-            margin-top: 0;
-            background-color: #111;
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        .drop-cap::first-letter {
-            font-family: var(--font-serif);
-            font-size: 4rem;
-            float: left;
-            line-height: 0.8;
-            padding-right: 15px;
-            padding-top: 5px;
-            color: var(--accent-red);
-        }
-
-        .floating-logo {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            opacity: 0.8;
-            z-index: 100;
-            mix-blend-mode: multiply;
-            transition: opacity 0.3s;
-        }
-        .floating-logo:hover { opacity: 1; }
-
-        /* --- Bouton d'installation PWA --- */
-        #install-button {
-            display: none;
-            position: fixed;
-            bottom: 100px;
-            right: 20px;
-            z-index: 1000;
-            padding: 12px 24px;
-            background-color: var(--accent-red);
-            color: white;
-            border: none;
-            font-family: var(--font-sans);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
-        }
-
-        @media(max-width: 900px) {
-            h1 { font-size: 3rem; }
-            .hero { height: 80vh; }
-            .float-visual-left { float: none; width: 100%; margin: 0 0 2rem 0; }
-            .grid-layout { grid-template-columns: 1fr; gap: 2rem; }
-            .chapter-num { font-size: 6rem; top: -3rem; left: 0; }
-            blockquote { font-size: 1.3rem; padding-left: 1rem; }
-            
-            .nav-container { flex-direction: column; gap: 1rem; }
-            .nav-menu { flex-wrap: wrap; justify-content: center; gap: 1rem; }
-            .main-header { padding: 1rem; }
-        }
+        /* ─── FOOTER ─── */
+        footer { background-color: var(--black); color: var(--white); padding: 60px 20px; text-align: center; }
+        footer .logo { color: var(--white); margin-bottom: 30px; display: inline-block; }
+        .social-icons a { color: var(--white); font-size: 24px; margin: 0 15px; text-decoration: none; transition: color 0.2s; }
+        .social-icons a:hover { color: var(--yellow); }
+        .footer-links a { color: #aaa; text-decoration: none; font-size: 0.9rem; margin: 0 10px; }
+        .footer-links a:hover { color: var(--yellow); }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="nav-container">
-            <a href="index.html" class="logo-container">
-                <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507287/le_logo_atao_zzufbw.png" alt="Logo ATAO">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="actualite.html">Actualités</a></li>
-                <li><a href="Evenement.html">Événements</a></li>
-                <li><a href="https://www.appsheet.com/start/7f55dd52-8cfa-4f28-b88d-cb123d4c8758" target="_blank">Espace Membre</a></li>
-            </ul>
+    <nav>
+        <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
+        
+        <div class="nav-links">
+            <a href="#vision">La Vision</a>
+            <a href="#offres">Systèmes</a>
+            <a href="#portfolio">Sur-mesure</a>
+            <a href="#contact">Contact</a>
+            <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank" class="client-portal"><i class="fa-solid fa-user"></i> Espace Client</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Le Web Associatif<br><span style="color: var(--yellow);">D'Action</span></h1>
+            <div class="separator-small"></div>
+            <p>Fini les sites vitrines qui prennent la poussière 😓<br>👇 Je construis des outils pour les assos qui bougent sur le terrain.</p>
+            <a href="#contact" class="qbutton yellow">Passer à l'action 🔥</a>
         </div>
     </header>
 
-    <!-- Bouton d'installation PWA (dans le HTML, pas dans un script) -->
-    <button id="install-button">Installer l'Application</button>
+    <div class="logos-section">
+        <h3>ILS FONT TOURNER LEUR ASSO AVEC MOI</h3>
+        <div class="marquee">
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/arche_chachou_syokwr.jpg" alt="Arche Chachou" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/Classolidr_qcgw3u.png" alt="Classolidr" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/lameka_r3tnbf.png" alt="La Meka" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+        </div>
+    </div>
 
-    <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507287/le_logo_atao_zzufbw.png" alt="Sceau ATAO" class="floating-logo">
-
-    <section class="hero reveal">
-        <span class="hero-subtitle">Fondée en 1992</span>
-        <h1>ATAO</h1>
-        <p style="max-width: 600px; font-style: italic; font-family: var(--font-serif); font-size: 1.5rem;">
-            Académie Toulousaine des Arts<br>& Civilisations d'Orient
-        </p>
-    </section>
-
-    <section id="fondation">
-        <div class="container">
-            <div class="reveal">
-                <span class="chapter-num">I</span>
-                <h2>L'Expertise Passionnée</h2>
-                
-                <p class="drop-cap">
-                    Cette structure – une association dont l'originalité est d'être fondée sur un collège d'académiciens de 31 membres – a été fondée en 1992 par <strong>Mme Monique Burgard</strong> et soutenue par Mr Pierre Puel, alors Maire adjoint chargé de la Culture.
-                </p>
-                
-                <h3>Une connaissance pluridisciplinaire</h3>
-                <p>
-                    L'objectif principal de cette académie est de <strong>MIEUX faire connaître</strong> au public toulousain l'histoire, les cultures et les réalisations des hommes qui ont peuplé ces territoires de l'Orient, qui s'étendent du Maghreb au Japon et de la Sibérie à l'Indonésie.
-                </p>
-
-                <figure class="full-width-visual reveal">
-                    <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507183/facade_mus%C3%A9e_paysage_ggtnlu.png" alt="Musée Georges-Labit" class="art-img">
-                    <figcaption>Le Musée Georges-Labit, siège historique de l'Académie.</figcaption>
-                </figure>
-
-                <blockquote>
-                    "Les équilibres ne seront durables que si les échanges sont précédés d'une connaissance approfondie de nos cultures respectives."
-                </blockquote>
-
-                <p>
-                    Ce vaste programme tire son origine d'une double réflexion. D'abord, nous partageons la conviction que les pays de l'Orient sont appelés à jouer un rôle déterminant dans les équilibres mondiaux. Mais le risque n'est-il pas hier comme aujourd'hui d'incendier le Palais d'été ou de détruire Palmyre faute de compréhension ?
-                </p>
-                
-                <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-                    <a href="article.html" class="btn-text" style="color: var(--text-grey); font-size: 0.8rem; border-color: var(--text-grey);">Voir nos dernières annonces</a>
-                </div>
+    <section class="section about-section" id="vision">
+        <div class="container grid-2">
+            <div class="about-text">
+                <h2>C'est qui lui ?</h2>
+                <div class="separator-small"></div>
+                <p>Je m'appelle Jérémy Colard. Consultant et développeur web depuis 3 ans, j'ai vu trop d'associations extraordinaires s'épuiser sur de la gestion administrative ou subir des sites internet impossibles à mettre à jour.</p>
+                <p>J'ai donc créé le système <strong>Assopage</strong>. Mon but ? Supprimer la barrière entre le terrain et le web. Avec moi, votre site devient un média en direct. Vous prenez une photo depuis votre téléphone, elle est en ligne. Vous gérez vos membres d'un clic.</p>
+                <p><strong>Vous avez l'humain. J'ai la technique. On avance.</strong></p>
+                <br>
+                <a href="#contact" class="qbutton dark">Me contacter</a>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" alt="Jérémy Colard en action">
             </div>
         </div>
     </section>
 
-    <div class="divider reveal"></div>
-
-    <section id="evolution">
+    <section class="section offers-section" id="offres">
         <div class="container">
-            <div class="reveal">
-                <span class="chapter-num">II</span>
-                <h2>L'Approche Verticale</h2>
-                
-                <figure class="float-visual-left">
-                    <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507183/hyerogliph_cmwoat.png" alt="Détail Hiéroglyphes" class="art-img" style="aspect-ratio: 1/1; object-fit: cover;">
-                    <figcaption>Déchiffrer les sédimentations de l'histoire.</figcaption>
-                </figure>
+            <h2>Les Systèmes Assopage</h2>
+            <div class="separator-small separator-dark"></div>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto;">Une fois que nous avons validé ensemble que l'outil correspond à vos besoins, démarrez votre abonnement en toute sécurité via Stripe. Sans engagement.</p>
 
-                <p>
-                    Si l'Académie a débuté par l'étude des arts (peinture, architecture, jardins), elle a su évoluer. Durant ce quart de siècle, les progrès réalisés dans la génétique, la philologie, l'ethnologie ou encore l'intelligence artificielle nous ont permis d'approfondir <strong>verticalement</strong> notre connaissance de l'Orient.
-                </p>
-                <p>
-                    Nous pouvons aujourd'hui plonger jusqu'aux origines de certaines ethnies grâce à la génétique, ou comprendre la logique de schismes anciens grâce aux sciences politiques. C'est une approche pluridisciplinaire innovante, sans équivalent en France.
-                </p>
-                <p>
-                    De l'anthropologie aux sillons contemporains, nous explorons toute l'épaisseur de l'aventure humaine en Orient.
-                </p>
-                <div style="clear: both;"></div> 
-            </div>
-        </div>
-    </section>
-
-    <div class="divider reveal"></div>
-
-    <section id="college">
-        <div class="container">
-            <div class="reveal">
-                <span class="chapter-num">III</span>
-                <h2>Le Collège des Académiciens</h2>
-                
-                <figure class="full-width-visual" style="margin-bottom: 3rem;">
-                    <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507182/conf%C3%A9rence_rywaqi.png" alt="Conférence ATAO" class="art-img">
-                    <figcaption>L'excellence académique en partage.</figcaption>
-                </figure>
-
-                <p>
-                    Pour garantir cette exigence, le collège s'est ouvert à des spécialistes de renommée internationale. Il constitue le socle intellectuel et la vitrine représentative de l'ATAO. Nos cycles de conférences sont filmés pour la postérité.
-                </p>
-                
-                <div style="margin: 3rem 0; background: white; padding: 2rem; border: 1px solid var(--line-color);">
-                    <h3 style="text-align: center; color: var(--text-ink); margin-bottom: 2rem; font-family: var(--font-serif);">Membres Éminents</h3>
-                    <ul class="clean-list">
-                        <li><strong>Jean TIROLE</strong> <span>Prix Nobel d'Économie 2014</span></li>
-                        <li><strong>Jean-Claude GOLVIN</strong> <span>Égyptologue, Dir. recherches CNRS</span></li>
-                        <li><strong>Marine CARRIN</strong> <span>Ethnologue spécialiste de l'Inde</span></li>
-                        <li><strong>Éric CRUBEZY</strong> <span>Généticien, Chef de missions en Sibérie</span></li>
-                        <li><strong>Yves COPPENS</strong> <span>Paléoanthropologue (Membre d'honneur)</span></li>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <h3>Vitrine</h3>
+                    <div class="offer-price">15€<span>/mois</span></div>
+                    <p>La présence numérique propre et pro. Bouton "Don" optimisé pour booster la trésorerie.</p>
+                    <ul>
+                        <li>Site moderne 100% géré</li>
+                        <li>Nom de domaine inclus</li>
+                        <li>1 évolution par mois</li>
                     </ul>
+                    <a href="https://buy.stripe.com/28E28q4Th9lS5Rf11PdAk00" class="qbutton dark" style="width: 100%;">Souscrire</a>
+                </div>
+
+                <div class="offer-card featured">
+                    <h3>Site + App</h3>
+                    <div class="offer-price">25€<span>/mois</span></div>
+                    <p>Votre asso dans la poche. Idéal pour publier depuis le terrain et gérer les événements.</p>
+                    <ul>
+                        <li><strong>Tout le plan Vitrine</strong></li>
+                        <li>Appli mobile dédiée</li>
+                        <li>Photos en direct </li>
+                        <li>Billetterie intégrée</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/fZu8wO0D1cy40wV7qddAk01" class="qbutton dark" style="width: 100%;">Souscrire</a>
+                </div>
+
+                <div class="offer-card">
+                    <h3>Gestion</h3>
+                    <div class="offer-price">35€<span>/mois</span></div>
+                    <p>Le cerveau de votre bureau. Finis les oublis de cotisations et les fichiers éparpillés.</p>
+                    <ul>
+                        <li><strong>Tout le plan App</strong></li>
+                        <li>CRM Contacts</li>
+                        <li>Rappels auto de paiement</li>
+                        <li>Jusqu'à 9 admins</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/bJe14madBapW93reSFdAk02" class="qbutton dark" style="width: 100%;">Souscrire</a>
+                </div>
+
+                <div class="offer-card">
+                    <h3>Pro</h3>
+                    <div class="offer-price">45€<span>/mois</span></div>
+                    <p>L'artillerie lourde pour structurer les gros volumes de bénévoles et les dons.</p>
+                    <ul>
+                        <li><strong>Tout le plan Gestion</strong></li>
+                        <li>Reçus fiscaux auto</li>
+                        <li>Campagnes mails</li>
+                        <li>Google Workspace</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/5kQfZgfxV69G93reSFdAk03" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="divider reveal"></div>
-
-    <section id="actions">
+    <section class="section testimonials-section">
         <div class="container">
-            <div class="reveal">
-                <span class="chapter-num">IV</span>
-                <h2>Transmission & Avenir</h2>
+            <h2 style="color: var(--black);">Le Terrain Parle</h2>
+            <div class="separator-small separator-dark"></div>
+            
+            <div class="testi-grid">
                 
-                <div class="grid-layout">
-                    
-                    <div>
-                        <h3>Le Prix Littéraire ATAO</h3>
-                        <p>
-                            Créé pour mettre en valeur l'œuvre d'un auteur contemporain sur l'Orient. Ce prix témoigne de notre désir d'associer la création littéraire à notre démarche scientifique. Il offre aux Toulousains un "autre regard", décalé et sensible.
-                        </p>
-                        <a href="article.html" class="btn-text" style="font-size: 0.8rem;">Lire les articles sur le Prix Littéraire</a>
-
-                        <h3 style="margin-top: 3rem;">Soutien au Musée</h3>
-                        <p>
-                            Siège physique de l'Académie, le musée est au cœur de notre action. Nous organisons :
-                        </p>
-                        <ul style="margin-left: 1rem; margin-bottom: 1.5rem; list-style-type: circle; color: #555;">
-                            <li>Des <strong>Histoires Extraordinaires</strong> pour les enfants (à partir de 4 ans) le dimanche.</li>
-                            <li>Un concours de dessin annuel.</li>
-                            <li>Un soutien scientifique aux expositions.</li>
-                        </ul>
-                        <a href="Evenement.html" class="btn-text">Voir le calendrier des activités &rarr;</a>
+                <div class="testi-card">
+                    <p class="testi-quote">"Son efficacité a transformé notre communication. Un partenaire exceptionnel qui a fait croître notre asso pour nos adhérents déficients visuels."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775736530/karine_bdvv7c.png" alt="Karine Centeno" class="testi-profile-img">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Karine Centeno</div>
+                            <div class="testi-role">Présidente, Aix en Vue</div>
+                        </div>
                     </div>
-
-                    <div>
-                        <figure>
-                            <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507183/oeuvre_du_mus%C3%A9e_format_portrait_qvvrag.png" alt="Œuvre Musée Labit" class="art-img" style="width: 100%; height: auto; object-fit: cover;">
-                            <figcaption>Trésors des collections du Musée Labit</figcaption>
-                        </figure>
-                    </div>
-
                 </div>
-            </div>
-        </div>
-    </section>
-    
-    <div class="divider reveal"></div>
-
-    <section id="conferences">
-        <div class="container">
-            <div class="reveal">
-                <span class="chapter-num">V</span>
-                <h2>Revoir nos conférences</h2>
-                <p>Retrouvez nos dernières interventions et débats académiques en vidéo.</p>
                 
-                <div class="video-grid">
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/6rP_sl6APxA" title="Conférence 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/pptpAJb4OiI" title="Conférence 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/5DhhahVVFjw" title="Conférence 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/hR2sywRT_Sk" title="Conférence 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/wcK1KFI7y7Q" title="Conférence 5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/u1SZZmSnFKA" title="Conférence 6" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="testi-card" style="background-color: var(--black); color: var(--white);">
+                    <p class="testi-quote" style="color: var(--white);">"Gérer 240 bénévoles c'était un grand sujet. Jérémy a répondu au-delà de nos attentes. Rapide, efficace : un gain de temps considérable."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775736577/benoit_bat5g8.png" alt="Benoit Vitrand" class="testi-profile-img" style="border-color: var(--yellow);">
+                        <div class="testi-author-info">
+                            <div class="testi-author" style="color: var(--yellow);">Benoit Vitrand</div>
+                            <div class="testi-role" style="color: #ccc;">Président, La Mekanik Du Rire</div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="testi-card">
+                    <p class="testi-quote">"Jérémy nous a permis de construire un intranet pour partager un agenda. Son accompagnement dans la mise en ligne nous a permis de monter en compétence et concrétiser ce projet."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Yves Cailloce" class="testi-profile-img" style="object-fit: contain; padding: 5px;">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Yves Cailloce</div>
+                            <div class="testi-role">Secours populaire</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testi-card">
+                    <p class="testi-quote">"Il nous a fait des tutos explicatifs. Il est adaptable aux novices et aux diverses demandes pratiques. Nous conseillons très vivement Jérémy en qui nous avons une totale confiance."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Nathalie" class="testi-profile-img" style="object-fit: contain; padding: 5px;">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Nathalie</div>
+                            <div class="testi-role">Hopesphere</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section class="final-cta reveal">
+    <section class="section portfolio-section" id="portfolio">
         <div class="container">
-            <h2 style="margin-bottom: 1rem;">Rejoignez l'aventure</h2>
-            <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem auto;">
-                Participez à nos prochaines rencontres, conférences et événements culturels pour enrichir votre regard sur l'Orient.
-            </p>
-            <a href="Evenement.html" class="btn-primary">S'inscrire aux événements</a>
+            <h2>Besoin d'aller plus loin ?</h2>
+            <div class="separator-small" style="margin: 0 auto 30px auto;"></div>
+            <p style="color: #ccc; max-width: 700px; margin: 0 auto 20px auto;">Les systèmes Assopage couvrent 95% des besoins standards des associations. Mais parfois, vous avez besoin d'une application métier ultra-spécifique ou d'un développement complexe sur-mesure.</p>
+            <p style="color: #ccc; max-width: 700px; margin: 0 auto 40px auto;">Si vous avez un projet d'envergure (sur devis) ou si vous souhaitez simplement voir une preuve technique de ce que je suis capable de coder, jetez un œil à mon portfolio de développeur.</p>
+            <a href="https://www.je-co.fr" target="_blank" class="qbutton yellow">Découvrir mes réalisations (je-co.fr)</a>
+        </div>
+    </section>
+
+    <section class="section contact-section" id="contact">
+        <div class="container contact-wrapper">
+            <i class="fa-solid fa-bolt contact-icon"></i>
+            <h2>Prêt à donner un coup de boost ?</h2>
+            <div class="separator-small"></div>
+            <p>On s'appelle 15 minutes. Je vous écoute, on regarde où ça bloque dans votre gestion, et je vous dis si mon système peut vous aider.</p>
+            <br>
+            <a href="mailto:contact@assopage.fr" class="qbutton yellow">Envoyer un email</a>
+            <br><br>
+            <p style="font-family: var(--font-title); font-size: 1.5rem; color: var(--black);">📞 06 50 30 25 47</p>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <div style="margin-bottom: 2rem;">
-                <img src="https://res.cloudinary.com/dwfblz9nl/image/upload/v1771507287/le_logo_atao_zzufbw.png" alt="Logo Footer" style="height: 60px; margin: 0 auto; opacity: 0.5;">
-            </div>
-            <p style="text-align: center; margin-bottom: 1rem; font-family: var(--font-serif); font-style: italic;">
-                ATAO — Académie Toulousaine des Arts et Civilisations d'Orient
-            </p>
-            <p style="text-align: center; font-size: 0.9rem; color: #666; line-height: 1.6;">
-                ATAO<br>
-                2, rue du colonel Rémy, appt 9<br>
-                31200 Toulouse<br><br>
-                Téléphone : +33 6 22 26 38 47<br>
-                Courriel : <a href="mailto:atao.culture@orange.fr" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #666;">atao.culture@orange.fr</a>
-            </p>
-            <div style="margin-top: 2rem; color: var(--accent-red); font-size: 1.5rem;">
-                &#10043;
-            </div>
+        <a href="#" class="logo"><span class="asso" style="color:var(--white);">ASSO</span><span class="page">PAGE</span></a>
+        <div class="separator-small" style="margin: 20px auto;"></div>
+        
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9my-colard-26a7a1287/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.je-co.fr" target="_blank" aria-label="Portfolio Je-co"><i class="fa-solid fa-globe"></i></a>
         </div>
+        
+        <div class="footer-links" style="margin-top: 25px;">
+            <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank">Gérer mon abonnement</a> | 
+            <a href="https://www.je-co.fr" target="_blank">Portfolio Sur-mesure</a>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 0.9rem; color: #666;">© 2026 Assopage par Jérémy Colard. Tous droits réservés.</p>
     </footer>
-
-    <script>
-        // 1. Animations au scroll
-        document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: "0px 0px -50px 0px"
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        });
-
-        // 2. Enregistrement du Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => {
-                        console.log('Service Worker enregistré avec succès:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.error('Erreur lors de l\'enregistrement du Service Worker:', error);
-                    });
-            });
-        }
-
-        // 3. Gestion du bouton d'installation PWA
-        let deferredPrompt;
-        const installButton = document.getElementById('install-button');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installButton.style.display = 'block';
-        });
-
-        installButton.addEventListener('click', async () => {
-            if (deferredPrompt !== null) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('L\'utilisateur a accepté l\'installation');
-                } else {
-                    console.log('L\'utilisateur a refusé l\'installation');
-                }
-                deferredPrompt = null;
-                installButton.style.display = 'none';
-            }
-        });
-
-        window.addEventListener('appinstalled', () => {
-            installButton.style.display = 'none';
-            console.log('PWA installée avec succès');
-        });
-    </script>
 
 </body>
 </html>
